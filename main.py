@@ -6,7 +6,7 @@ from getpass import getpass
 from password_gen import gen_password
 from database import Database
 # from logger import get_logger
-import subprocess
+# import subprocess
 
 class PM:
     def __init__(self):
@@ -40,7 +40,6 @@ class PM:
         plain_pw = input(f'Password [{default_pw}]: ')
         if not plain_pw:
             plain_pw = default_pw
-            subprocess.run('xclip', universal_newlines=True, input=plain_pw)
         
         # Check if pw has been seen in data breach
         try:
@@ -96,8 +95,8 @@ class PM:
             return
 
         # Check if pw has been seen in data breach
-        if times_seen:=is_pwned(plain_pw):
-            print(f'WARNING: This password has been seen {int(times_seen):,} times before!')
+        if seen:=check(plain_pw):
+            print(f'WARNING: This password has been seen {int(seen):,} times before!')
             
             if not self.ask_to_continue('Update'):
                 print('Cancelled.')
